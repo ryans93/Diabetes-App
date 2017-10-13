@@ -34,8 +34,7 @@ db.once("open", function () {
 
 //api routes here
 
-app.post("/api/newUser", function (req, res) {
-    
+app.post("/api/newUser", function (req, res) { 
     let newUser = new User(req.body);
     console.log(newUser);
     newUser.save(function (err, doc) {
@@ -69,7 +68,7 @@ app.post("/api/setSettings", function (req, res) {
 });
 
 app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+    res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
 app.listen(PORT, function () {
