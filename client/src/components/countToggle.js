@@ -18,6 +18,9 @@ class CountToggle extends Component {
   };
 
   componentDidUpdate = (prevProps, prevState) => {
+    if (this.props.reset && prevProps.reset !== this.props.reset) {
+        this.setState({switched: false});
+    } 
     if(this.state.switched === ""){
         this.setState({switched: this.props.switched});
     }

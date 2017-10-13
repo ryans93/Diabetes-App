@@ -52,6 +52,7 @@ class CreateAccount extends Component {
                 <form>
                     <div className="row">
                         <label>Username</label>
+                        <h5>Must be between 6-30 characters</h5>
                     </div>
                     <input
                         value={this.state.username}
@@ -60,6 +61,7 @@ class CreateAccount extends Component {
                     />
                     <div className="row">
                         <label>Password</label>
+                        <h5>Must be between 6-30 characters</h5>
                     </div>
                     <input
                         value={this.state.password}
@@ -68,6 +70,7 @@ class CreateAccount extends Component {
                     />
                     <div className="row">
                         <label>Weight</label>
+                        <h5>Enter weight in pounds between 50-500</h5>
                     </div>
                     <input
                         value={this.state.weight}
@@ -76,6 +79,7 @@ class CreateAccount extends Component {
                     />
                     <div className="row">
                         <label>Age</label>
+                        <h5>Enter age in years betweent 0-99</h5>
                     </div>
                     <input
                         value={this.state.age}

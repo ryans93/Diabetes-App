@@ -25,10 +25,9 @@ class Settings extends Component {
         errorMargin: "",
         countProtein: "",
         hyperAdj: "",
-        updateSuccess: ""
+        updateSuccess: "",
+        reset: false
     }
-
-    
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -136,7 +135,9 @@ class Settings extends Component {
                 countProtein: false,
                 hyperAdj: false
             });
-            this.setState({updateSuccess: "Success: account settings restored!"})
+            this.setState({updateSuccess: "Success: account settings restored!"});
+            this.setState({reset:true});
+            this.setState({reset:false});
         })
     }
 
@@ -350,11 +351,11 @@ class Settings extends Component {
                         <div className="row">
                             <label>Count Protein</label>
                         </div>
-                        <CountToggle switched={this.state.countProtein} getSwitched={this.switchCount} />
+                        <CountToggle switched={this.state.countProtein} reset={this.state.reset} getSwitched={this.switchCount} />
                         <div className="row">
                             <label>Hyperglycemia Adjustment</label>
                         </div>
-                        <HyperToggle switched={this.state.hyperAdj} getSwitched={this.switchHyper} />
+                        <HyperToggle switched={this.state.hyperAdj} reset={this.state.reset} getSwitched={this.switchHyper} />
 
                         <div className="row">
                             <h4>{this.state.updateSuccess}</h4>
