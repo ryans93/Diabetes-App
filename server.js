@@ -16,7 +16,10 @@ const User = require("./models/User.js");
 
 mongoose.Promise = Promise;
 
-mongoose.connect("mongodb://heroku_dgc16104:tqpebu7n54m6h8rvisfafljssb@ds119565.mlab.com:19565/heroku_dgc16104" || "mongodb://localhost/DiabetesDB");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/DiabetesDB",
+{
+    useMongoClient: true
+  });
 
 const db = mongoose.connection;
 
@@ -44,6 +47,25 @@ app.post("/api/newUser", function (req, res) {
         }
         res.send(doc);
     });
+});
+
+app.get("/api/getSettings", function (req, res) {
+    User.findOne({}).exec(function (err, data) {
+        if (err) {
+            res.send(err);
+        }
+        res.send(data);
+    })
+});
+
+app.post("/api/setSettings", function (req, res) {
+    let newSettings = req.body;
+    console.log(newSettings);
+    User.findOneAndUpdate({}, { $set:  newSettings }, (err, results) =>{
+        if (err) console.log(err);
+        res.send(results);
+    });
+    
 });
 
 app.get("*", function (req, res) {

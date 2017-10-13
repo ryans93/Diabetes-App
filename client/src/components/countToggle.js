@@ -6,7 +6,7 @@ import "../../node_modules/react-toggle-switch/dist/css/switch.min.css"
 class CountToggle extends Component {
 
     state = {
-      switched: this.props.switched
+      switched: ""
     };
  
   toggleSwitch = () => {
@@ -18,6 +18,9 @@ class CountToggle extends Component {
   };
 
   componentDidUpdate = (prevProps, prevState) => {
+    if(this.state.switched === ""){
+        this.setState({switched: this.props.switched});
+    }
     if (prevState.switched !== this.state.switched) {
     this.props.getSwitched(this.state);
     }

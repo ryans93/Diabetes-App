@@ -5,6 +5,7 @@ import CountToggle from "../components/countToggle";
 import HyperToggle from "../components/hyperToggle";
 import $ from "jquery";
 import "./css/settings.css";
+import API from "../utils/API";
 
 
 class Settings extends Component {
@@ -12,18 +13,19 @@ class Settings extends Component {
     state = {
         weight: "",
         age: "",
-        sensCo: ".37",
-        ic: "8",
-        ip: "8",
-        bsRaise: "8",
-        cf: "8",
-        lowLimit: "70",
-        highLimit: "180",
-        targetBG: "100",
-        exerCo: "1",
-        errorMargin: "10",
-        countProtein: "false",
-        hyperAdj: "false",
+        sensCo: "",
+        ic: "",
+        ip: "",
+        bsRaise: "",
+        cf: "",
+        lowLimit: "",
+        highLimit: "",
+        targetBG: "",
+        exerCo: "",
+        errorMargin: "",
+        countProtein: "",
+        hyperAdj: "",
+        updateSuccess: ""
     }
 
     handleInputChange = event => {
@@ -34,22 +36,106 @@ class Settings extends Component {
     };
 
     switchCount = switched => {
-        if (switched.switched){
-        this.setState({countProtein: "true"});
+        if (switched.switched) {
+            this.setState({ countProtein: "true" });
         }
         else {
-            this.setState({countProtein: "false"});
+            this.setState({ countProtein: "false" });
         }
     }
 
     switchHyper = switched => {
-        console.log(this.state.hyperAdj);
-        if (switched.switched){
-            this.setState({hyperAdj: "true"});
-            }
-            else {
-                this.setState({hyperAdj: "false"});
-            }
+        if (switched.switched) {
+            this.setState({ hyperAdj: "true" });
+        }
+        else {
+            this.setState({ hyperAdj: "false" });
+        }
+    }
+
+    componentDidMount = () => {
+        API.getSettings().then((res) => {
+            let init = res.data;
+            console.log(init);
+            this.setState({
+                weight: init.weight,
+                age: init.age,
+                sensCo: init.sensCo,
+                ic: init.ic,
+                ip: init.ip,
+                bsRaise: init.bsRaise,
+                cf: init.cf,
+                lowLimit: init.lowLimit,
+                highLimit: init.highLimit,
+                targetBG: init.targetBG,
+                exerCo: init.exerCo,
+                errorMargin: init.errorMargin,
+                countProtein: init.countProtein,
+                hyperAdj: init.hyperAdj,
+            })
+            console.log(this.state.hyperAdj);
+        })
+    }
+
+    handleFormSubmit = (event) => {
+        event.preventDefault();
+        let newSettings = {
+            weight: this.state.weight,
+            age: this.state.age,
+            sensCo: this.state.sensCo,
+            ic: this.state.ic,
+            ip: this.state.ip,
+            bsRaise: this.state.bsRaise,
+            cf: this.state.cf,
+            lowLimit: this.state.lowLimit,
+            highLimit: this.state.highLimit,
+            targetBG: this.state.targetBG,
+            exerCo: this.state.exerCo,
+            errorMargin: this.state.errorMargin,
+            countProtein: this.state.countProtein,
+            hyperAdj: this.state.hyperAdj
+        };
+        API.setSettings(newSettings).then(() => {
+            this.setState({updateSuccess: "Success: account settings updated!"})
+        })
+    }
+
+    restoreDefaults = event => {
+        event.preventDefault();
+        let weight = this.state.weight;
+        let ic = 1800 / weight;
+        let ip = ic * (1 / .36);
+        let bsRaise = 707.54574 * Math.pow(weight, -1.000424505);
+        let cf = ic * bsRaise;
+        let restoredSettings = {
+            ic: ic.toFixed(2),
+            ip: ip.toFixed(2),
+            bsRaise: bsRaise.toFixed(2),
+            cf: cf.toFixed(2),
+            lowLimit: 70,
+            highLimit: 180,
+            targetBG: 100,
+            exerCo: 1,
+            errorMargin: 10,
+            countProtein: false,
+            hyperAdj: false
+        };
+        API.setSettings(restoredSettings).then(() => {
+            this.setState({
+                ic: ic.toFixed(2),
+                ip: ip.toFixed(2),
+                bsRaise: bsRaise.toFixed(2),
+                cf: cf.toFixed(2),
+                lowLimit: 70,
+                highLimit: 180,
+                targetBG: 100,
+                exerCo: 1,
+                errorMargin: 10,
+                countProtein: false,
+                hyperAdj: false
+            });
+            this.setState({updateSuccess: "Success: account settings restored!"})
+        })
     }
 
     render() {
@@ -59,6 +145,7 @@ class Settings extends Component {
                 <div className="container" id="container-settings">
                     <h1>Account Settings</h1>
                     <form>
+                        <h2>User Settings</h2>
                         <div className="row">
                             <label>Weight</label>
                         </div>
@@ -97,7 +184,6 @@ class Settings extends Component {
                                 onInput={function () {
                                     var slider = $("#sensCoRange");
                                     var output = $("#sliderVal");
-                                    console.log(slider.val());
                                     $("#sliderVal").html(slider.val());
                                 }}
                                 value={this.state.sensCo}
@@ -106,6 +192,7 @@ class Settings extends Component {
                             />
 
                         </div>
+                        <h2>App Settings</h2>
                         <div className="row">
                             <label>Insulin:Carb Ratio</label>
                         </div>
@@ -257,30 +344,40 @@ class Settings extends Component {
                             />
 
                         </div>
+                        <h2>Advanced Features</h2>
                         <div className="row">
                             <label>Count Protein</label>
                         </div>
-                       <CountToggle switched={this.state.countProtein == "true" ? true : false} getSwitched={this.switchCount}/>
+                        <CountToggle switched={this.state.countProtein} getSwitched={this.switchCount} />
                         <div className="row">
                             <label>Hyperglycemia Adjustment</label>
                         </div>
-                        <HyperToggle switched={this.state.hyperAdj == "true" ? true : false} getSwitched={this.switchHyper}/>
+                        <HyperToggle switched={this.state.hyperAdj} getSwitched={this.switchHyper} />
 
                         <div className="row">
+                            <h4>{this.state.updateSuccess}</h4>
                             <div id="btnContainer">
                                 <button
                                     className="btn btn-success"
                                     id="btn-createAccount"
-                                    disabled={!(this.state.weight) || !(this.state.age) || !(this.state.sensCo) || !(this.state.ic) || !(this.state.ip) || !(this.state.bsRaise) || !(this.state.cf) || !(this.state.lowLimit) || !(this.state.highLimit) || !(this.state.targetBG) || !(this.state.exerCo) || !(this.state.errorMargin) || !(this.state.countProtein) || !(this.state.hyperAdj)}
+                                    disabled={!(this.state.weight) || !(this.state.age) || !(this.state.sensCo) || !(this.state.ic) || !(this.state.ip) || !(this.state.bsRaise) || !(this.state.cf) || !(this.state.lowLimit) || !(this.state.highLimit) || !(this.state.targetBG) || !(this.state.exerCo) || !(this.state.errorMargin)}
                                     onClick={this.handleFormSubmit}
                                 >
                                     Edit
+                            </button>
+                            <button
+                                    className="btn btn-success"
+                                    id="btn-restore"
+                                    onClick={this.restoreDefaults}
+                                >
+                                    Restore Defaults
                             </button>
                             </div>
                         </div>
                     </form>
 
                 </div>
+
             </div>
         );
     }
