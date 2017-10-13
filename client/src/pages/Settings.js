@@ -28,6 +28,8 @@ class Settings extends Component {
         updateSuccess: ""
     }
 
+    
+
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
