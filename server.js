@@ -16,10 +16,7 @@ const User = require("./models/User.js");
 
 mongoose.Promise = Promise;
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/DiabetesDB",
-{
-    useMongoClient: true
-  });
+mongoose.connect("mongodb://heroku_dgc16104:tqpebu7n54m6h8rvisfafljssb@ds119565.mlab.com:19565/heroku_dgc16104" || "mongodb://localhost/DiabetesDB");
 
 const db = mongoose.connection;
 
@@ -50,7 +47,7 @@ app.post("/api/newUser", function (req, res) {
 });
 
 app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+    res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
 app.listen(PORT, function () {
