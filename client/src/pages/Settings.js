@@ -303,6 +303,15 @@ class Settings extends Component {
                         </div>
                         <div className="row">
                             <label>Exercise Coefficient</label>
+                            <h5>Adjust this setting based on activity level within 4 hours after eating</h5>
+                            <h5>Sedentary</h5>
+                            <h5>40-60 minutes: 1.1     60+ minutes: 1.25</h5>
+                            <h5>Light Exercise</h5>
+                            <h5>40-60 minutes: 0.8     60+ minutes: 0.7</h5>
+                            <h5>Moderate Exercise</h5>
+                            <h5>40-60 minutes: 0.67     60+ minutes: 0.5</h5>
+                            <h5>Vigorous Exercise</h5>
+                            <h5>40-60 minutes: 0.5     60+ minutes: 0.33</h5>
                         </div>
                         <div id="exerCoSliderVal">{this.state.exerCo}</div>
                         <div id="slidecontainer">
@@ -326,6 +335,9 @@ class Settings extends Component {
                         </div>
                         <div className="row">
                             <label>Error Margin</label>
+                            <h5>The FDA allows for up to a 20% margin of error on reporting nutrion information</h5>
+                            <h5>Adjust this setting to account differences in actual nutrient content when anticipating post-meal blood sugars </h5>
+                            <h5>Studies have shown most foods fall around the 10% error margin, while restuarant foods can be 20% or higher</h5>
                         </div>
                         <div id="errorMarginSliderVal">{this.state.errorMargin}</div>
                         <div id="slidecontainer">
@@ -350,10 +362,13 @@ class Settings extends Component {
                         <h2>Advanced Features</h2>
                         <div className="row">
                             <label>Count Protein</label>
+                            <h5>Enable the feature to factor protein intake into bolus calculations</h5>
                         </div>
                         <CountToggle switched={this.state.countProtein} reset={this.state.reset} getSwitched={this.switchCount} />
                         <div className="row">
                             <label>Hyperglycemia Adjustment</label>
+                            <h5>Hyperglycemia creates dehydration and facilitates insulin resistance</h5>
+                            <h5>Enable this feature to adjust bolus calculations for hyperglycemia-induced insulin resistance</h5>
                         </div>
                         <HyperToggle switched={this.state.hyperAdj} reset={this.state.reset} getSwitched={this.switchHyper} />
 

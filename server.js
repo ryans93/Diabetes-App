@@ -12,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
 const User = require("./models/User.js");
 
 mongoose.Promise = Promise;
@@ -67,9 +69,9 @@ app.post("/api/setSettings", function (req, res) {
     
 });
 
-app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  });
 
 app.listen(PORT, function () {
     console.log("App running on port " + PORT);
