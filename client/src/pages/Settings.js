@@ -321,13 +321,13 @@ class Settings extends Component {
                             <label>Exercise Coefficient</label>
                             <h5>Adjust this setting based on activity level within 4 hours after eating</h5>
                             <h5>Sedentary</h5>
-                            <h5>40-60 minutes: 1.1     60+ minutes: 1.25</h5>
+                            <h5>40-60 minutes: 1.1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60+ minutes: 1.25</h5>
                             <h5>Light Exercise</h5>
-                            <h5>40-60 minutes: 0.8     60+ minutes: 0.7</h5>
+                            <h5>40-60 minutes: 0.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 60+ minutes: 0.7</h5>
                             <h5>Moderate Exercise</h5>
-                            <h5>40-60 minutes: 0.67     60+ minutes: 0.5</h5>
+                            <h5>40-60 minutes: 0.67 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60+ minutes: 0.5</h5>
                             <h5>Vigorous Exercise</h5>
-                            <h5>40-60 minutes: 0.5     60+ minutes: 0.33</h5>
+                            <h5>40-60 minutes: 0.5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60+ minutes: 0.33</h5>
                         </div>
                         <div id="exerCoSliderVal">{this.state.exerCo}</div>
                         <div id="slidecontainer">
