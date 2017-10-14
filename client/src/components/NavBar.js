@@ -17,10 +17,10 @@ class NavBar extends Component {
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav navbar-right">
                             <li className="dropdown">
-                                <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span className="glyphicon glyphicon-cog" aria-hidden="true"/> <span className="caret"></span></a>
+                                <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span className="glyphicon glyphicon-cog" aria-hidden="true" /> <span className="caret"></span></a>
                                 <ul className="dropdown-menu">
-                                <li><Link to="/settings"><a>Account Settings</a></Link></li>
-                                <li><Link to="/"><a>Logout</a></Link></li>
+                                    <li><Link to="/settings"><a>Account Settings</a></Link></li>
+                                    <li><Link to="/"><a>Logout</a></Link></li>
                                 </ul>
                             </li>
                         </ul>

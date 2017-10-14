@@ -6,7 +6,7 @@ import HyperToggle from "../components/hyperToggle";
 import $ from "jquery";
 import "./css/settings.css";
 import API from "../utils/API";
-
+import { Redirect } from 'react-router';
 
 class Settings extends Component {
 
@@ -26,7 +26,8 @@ class Settings extends Component {
         countProtein: "",
         hyperAdj: "",
         updateSuccess: "",
-        reset: false
+        reset: false,
+        redirect: false
     }
 
     handleInputChange = event => {
@@ -141,7 +142,22 @@ class Settings extends Component {
         })
     }
 
+    handleDelete = event => {
+        event.preventDefault();
+        API.deleteUser().then(res => {
+            console.log(res);
+            this.setState({ redirect: true });
+        })
+    };
+
+
     render() {
+        let redirect = this.state.redirect;
+        console.log(redirect);
+             if (redirect) {
+                 console.log("about to redirect");
+               return <Redirect to='/'/>;
+             }
         return (
             <div>
                 <NavBar />
@@ -389,6 +405,13 @@ class Settings extends Component {
                                     onClick={this.restoreDefaults}
                                 >
                                     Restore Defaults
+                            </button>
+                            <button
+                                    className="btn btn-danger"
+                                    id="btn-delete"
+                                    onClick={this.handleDelete}
+                                >
+                                    Delete Account
                             </button>
                             </div>
                         </div>

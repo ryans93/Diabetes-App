@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./css/createAccount.css";
 import $ from "jquery";
 import API from "../utils/API";
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
 
 class CreateAccount extends Component {
 

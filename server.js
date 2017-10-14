@@ -66,7 +66,13 @@ app.post("/api/setSettings", function (req, res) {
         if (err) console.log(err);
         res.send(results);
     });
-    
+});
+
+app.delete("/api/deleteUser", function (req, res) {
+    User.findOneAndRemove({}, (err, results) =>{
+        if (err) console.log(err);
+        res.send(results);
+    });
 });
 
 app.get('/', function (req, res) {

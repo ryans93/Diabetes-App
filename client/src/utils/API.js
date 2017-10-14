@@ -24,6 +24,10 @@ const API = {
 
     setSettings: (newSettings) => {
         return axios.post("/api/setSettings", newSettings);
+    },
+
+    deleteUser: () => {
+        return axios.delete("/api/deleteUser");
     }
 
 
